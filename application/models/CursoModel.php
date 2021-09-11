@@ -1,5 +1,5 @@
 <?php
-class ContenidoModel extends CI_Model
+class CursoModel extends CI_Model
 {
     function __construct()
     {
@@ -11,7 +11,7 @@ class ContenidoModel extends CI_Model
     public function getAll()
     {
         $result = null;
-        $sql = "SELECT * FROM contenido WHERE estado = 1 ";
+        $sql = "SELECT * FROM curso WHERE estado = 1 ";
 
         $query = $this->db->query($sql);
 
@@ -23,11 +23,11 @@ class ContenidoModel extends CI_Model
         return $result;
     }
 
-    public function getMisContenidos()
+    public function getMisCursos()
     {
         $result = null;
         $uid = $this->session->userdata('UID');
-        $sql = "SELECT * FROM contenido WHERE estado = 1 AND id_usuario=$uid ";
+        $sql = "SELECT * FROM curso WHERE estado = 1 AND id_usuario=$uid ";
 
         $query = $this->db->query($sql);
 
@@ -42,11 +42,11 @@ class ContenidoModel extends CI_Model
     public function getPublicados()
     {
         $result = null;
-        $sql = "SELECT contenido.*, persona.* 
-                FROM contenido
-                INNER JOIN usuario ON usuario.id_usuario = contenido.id_usuario
+        $sql = "SELECT curso.*, persona.* 
+                FROM curso
+                INNER JOIN usuario ON usuario.id_usuario = curso.id_usuario
                 INNER JOIN persona ON persona.id_persona = usuario.id_persona
-                WHERE contenido.estado = 1 AND fecha_publicacion IS NOT NULL ";
+                WHERE curso.estado = 1 AND fecha_publicacion IS NOT NULL ";
 
         $query = $this->db->query($sql);
 
@@ -58,14 +58,14 @@ class ContenidoModel extends CI_Model
         return $result;
     }
 
-    public function getOne($idContenido)
+    public function getOne($idCurso)
     {
         $result = null;
-        $sql = "SELECT  contenido.*, persona.*
-                FROM contenido 
-                INNER JOIN usuario ON usuario.id_usuario = contenido.id_usuario
+        $sql = "SELECT  curso.*, persona.*
+                FROM curso 
+                INNER JOIN usuario ON usuario.id_usuario = curso.id_usuario
                 INNER JOIN persona ON persona.id_persona = usuario.id_persona
-                WHERE ID_CONTENIDO = $idContenido AND contenido.ESTADO = 1 ";
+                WHERE ID_CURSO = $idCurso AND curso.ESTADO = 1 ";
 
         $query = $this->db->query($sql);
 
@@ -80,18 +80,18 @@ class ContenidoModel extends CI_Model
     public function createOne()
     {
         $data = $this->addDatosAuditoria($this->setData());
-        $this->db->insert('contenido', $data);
+        $this->db->insert('curso', $data);
         $insert_id = $this->db->insert_id();
         return $insert_id;
     }
 
-    public function updateOne($idContenido)
+    public function updateOne($idCurso)
     {
         $data = $this->uptDatosAuditoria($this->setData());
-        $this->db->update('contenido', $data, array('ID_CONTENIDO' => $idContenido));
+        $this->db->update('curso', $data, array('ID_CURSO' => $idCurso));
     }
 
-    public function publicar($idContenido, $publicar = true)
+    public function publicar($idCurso, $publicar = true)
     {
         $data = [];
         if ($publicar) {
@@ -99,14 +99,14 @@ class ContenidoModel extends CI_Model
         } else {
             $data['FECHA_PUBLICACION'] = null;
         }
-        $this->db->update('contenido', $data, array('ID_CONTENIDO' => $idContenido));
+        $this->db->update('curso', $data, array('ID_CURSO' => $idCurso));
     }
 
-    public function deleteOne($idContenido)
+    public function deleteOne($idCurso)
     {
-        //$this->db->delete('contenido', array('ID_ROL' => $idPersona));
+        //$this->db->delete('curso', array('ID_ROL' => $idPersona));
         $this->ESTADO = 0;
-        $this->db->update('contenido', $this, array('ID_CONTENIDO' => $idContenido));
+        $this->db->update('curso', $this, array('ID_CURSO' => $idCurso));
     }
 
     private function setData()

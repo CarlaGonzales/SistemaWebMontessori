@@ -227,6 +227,12 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
+                                        <a href="<?php echo base_url(); ?>curso/" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Cursos</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a href="<?php echo base_url(); ?>categoria/" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Categorias</p>
@@ -282,6 +288,12 @@
                                         <a href="<?php echo base_url(); ?>contenido/" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Contenido</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?php echo base_url(); ?>curso/" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Cursos</p>
                                         </a>
                                     </li>
                                 </ul>

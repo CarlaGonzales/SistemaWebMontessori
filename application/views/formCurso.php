@@ -1,33 +1,33 @@
 <div class="card card-info">
   <div class="card-header">
-    <h3 class="card-title">Datos de contenido</h3>
+    <h3 class="card-title">Datos de curso</h3>
   </div>
   <!-- /.card-header -->
   <!-- form start -->
-  <form class="form-horizontal" method="<?php echo ($isPost) ? 'post' : 'get' ?>" action="<?php echo base_url(); ?>contenido/<?php echo $action; ?>">
+  <form class="form-horizontal" method="<?php echo ($isPost) ? 'post' : 'get' ?>" action="<?php echo base_url(); ?>curso/<?php echo $action; ?>">
     <div class="card-body">
       <div class="form-group row">
         <label for="TITULO" class="col-sm-2 col-form-label">Título</label>
         <div class="col-sm-10">
-          <input type="text" <?php echo ($isPost) ? '' : 'readonly' ?> class="form-control" id="TITULO" name="TITULO" value="<?php echo isset($contenido) ? $contenido->TITULO : ""; ?>" required placeholder="Ingrese su titulo">
+          <input type="text" <?php echo ($isPost) ? '' : 'readonly' ?> class="form-control" id="TITULO" name="TITULO" value="<?php echo isset($curso) ? $curso->TITULO : ""; ?>" required placeholder="Ingrese su titulo">
         </div>
       </div>
       <div class="form-group row">
         <label for="SUB_TITULO" class="col-sm-2 col-form-label">Sub título</label>
         <div class="col-sm-10">
-          <input type="text" <?php echo ($isPost) ? '' : 'readonly' ?> class="form-control" id="SUB_TITULO" name="SUB_TITULO" value="<?php echo isset($contenido) ? $contenido->SUB_TITULO : ""; ?>" required placeholder="Ingrese su sub-titulo">
+          <input type="text" <?php echo ($isPost) ? '' : 'readonly' ?> class="form-control" id="SUB_TITULO" name="SUB_TITULO" value="<?php echo isset($curso) ? $curso->SUB_TITULO : ""; ?>" required placeholder="Ingrese su sub-titulo">
         </div>
       </div>
       <div class="form-group row">
         <label for="DESCRIPCION" class="col-sm-2 col-form-label">Contenido</label>
         <div class="col-sm-10">
-          <textarea id="summernote" <?php echo ($isPost) ? '' : 'readonly' ?> required name="DESCRIPCION"><?php echo isset($contenido) ? str_replace('"', "'", $contenido->DESCRIPCION) : ""; ?></textarea>
+          <textarea id="summernote" <?php echo ($isPost) ? '' : 'readonly' ?> required name="DESCRIPCION"><?php echo isset($curso) ? str_replace('"', "'", $curso->DESCRIPCION) : ""; ?></textarea>
         </div>
       </div>
       <div class="form-group row">
         <label for="PUBLICAR" class="col-sm-2 col-form-label">Publicar</label>
         <div class="col-sm-10">
-          <input type="checkbox" <?php echo ($isPost) ? '' : 'readonly' ?> class="form-control" id="PUBLICAR" name="PUBLICAR" <?php echo isset($contenido) && isset($contenido->FECHA_PUBLICACION) ? "checked" : ""; ?>>
+          <input type="checkbox" <?php echo ($isPost) ? '' : 'readonly' ?> class="form-control" id="PUBLICAR" name="PUBLICAR" <?php echo isset($curso) && isset($curso->FECHA_PUBLICACION) ? "checked" : ""; ?>>
         </div>
       </div>
       <div class="form-group row">
@@ -56,9 +56,9 @@
       <?php if ($isPost) { ?>
         <button type="submit" class="btn btn-info"><?php echo $boton; ?></button>
       <?php } else { ?>
-        <a href="<?php echo base_url() ?>contenido/<?php echo $action; ?>" class="btn btn-info"><?php echo $boton; ?></a>
+        <a href="<?php echo base_url() ?>curso/<?php echo $action; ?>" class="btn btn-info"><?php echo $boton; ?></a>
       <?php } ?>
-      <a href="<?php echo base_url() ?>contenido" class="btn btn-default float-right">Cancelar</a>
+      <a href="<?php echo base_url() ?>curso" class="btn btn-default float-right">Cancelar</a>
     </div>
     <!-- /.card-footer -->
   </form>

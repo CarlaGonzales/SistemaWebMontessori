@@ -11,6 +11,8 @@ class Contenido extends CI_Controller
 		$this->load->library('Layouts');
 		$this->load->library('session');
 		$this->load->model('ContenidoModel', 'mContenido');
+		$this->load->model('AreaCategoriaModel', 'mAreaCategoria');
+		$this->load->model('ClasificacionContenidoModel', 'mClasificacionContenido');
 		if ($this->session->userdata('username') == '') {
 			redirect('/ingreso');
 		}
@@ -47,12 +49,15 @@ class Contenido extends CI_Controller
 		$boton = "Guardar";
 		$action = "saveNuevo";
 		$isPost = true;
-		$this->layouts->view('formContenido', compact('boton', 'action', 'isPost'));
+		$area_categoria_sel = [];
+		$area_categoria = $this->mAreaCategoria->getAll();
+		$this->layouts->view('formContenido', compact('boton', 'action', 'isPost', 'area_categoria', 'area_categoria_sel'));
 	}
 
 	public function saveNuevo()
 	{
-		$this->mContenido->createOne();
+		$idContenido = $this->mContenido->createOne();
+		$this->mClasificacionContenido->createOne($idContenido);
 		redirect('contenido/index');
 	}
 
@@ -61,13 +66,16 @@ class Contenido extends CI_Controller
 		$boton = "Actualizar";
 		$action = "saveEditar/$idContenido";
 		$isPost = true;
+		$area_categoria = $this->mAreaCategoria->getAll();
+		$area_categoria_sel = $this->mClasificacionContenido->getByContenido($idContenido);
 		$contenido = $this->mContenido->getOne($idContenido);
-		$this->layouts->view('formContenido', compact('boton', 'action', 'isPost', 'contenido'));
+		$this->layouts->view('formContenido', compact('boton', 'action', 'isPost', 'area_categoria', 'contenido', 'area_categoria_sel'));
 	}
 
 	public function saveEditar($idContenido)
 	{
 		$this->mContenido->updateOne($idContenido);
+		$this->mClasificacionContenido->updateOne($idContenido);
 		redirect('contenido/index');
 	}
 
