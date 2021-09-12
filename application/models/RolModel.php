@@ -9,6 +9,8 @@ class RolModel extends CI_Model
         // Call the Model constructor
         parent::__construct();
         $this->load->database();
+        $ci = get_instance();
+        $ci->load->helper('auditoria');
     }
 
     public function getAll()
@@ -54,11 +56,11 @@ class RolModel extends CI_Model
     {
         $this->ID_ROL = $_POST['NOMBRE'];
         $this->ESTADO = 1;
-        $this->db->update('rol', $this, array('ID_USUARIO' => $idPersona));
+        $this->db->update('rol', $this, array('ID_USUARIO' => $idRol));
     }
 
     public function deleteOne($idRol)
     {
-        $this->db->delete('rol', array('ID_ROL' => $idPersona));
+        $this->db->delete('rol', array('ID_ROL' => $idRol));
     }
 }

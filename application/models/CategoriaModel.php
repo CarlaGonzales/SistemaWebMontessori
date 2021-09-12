@@ -6,6 +6,8 @@ class CategoriaModel extends CI_Model
         // Call the Model constructor
         parent::__construct();
         $this->load->database();
+        $ci = get_instance();
+        $ci->load->helper('auditoria');
     }
 
     public function getAll()
@@ -42,13 +44,13 @@ class CategoriaModel extends CI_Model
 
     public function createOne()
     {
-        $data = $this->addDatosAuditoria($this->setData());
+        $data = addDatosAuditoria($this->setData());
         $this->db->insert('categoria', $data);
     }
 
     public function updateOne($idCategoria)
     {
-        $data = $this->uptDatosAuditoria($this->setData());
+        $data = uptDatosAuditoria($this->setData());
         $this->db->update('categoria', $data, array('ID_CATEGORIA' => $idCategoria));
     }
 
@@ -67,21 +69,6 @@ class CategoriaModel extends CI_Model
             $data['NOMBRE'] = $_POST['NOMBRE'];
         }
         
-        return $data;
-    }
-
-    private function addDatosAuditoria($data)
-    {
-        $data['FECHA_REG'] = (new DateTime())->format('Y-m-d H:i:s');
-        $data['USUARIO_REG'] =  $this->session->userdata('email');
-        $data['ESTADO'] = 1;
-        return $data;
-    }
-
-    private function uptDatosAuditoria($data)
-    {
-        $data['FECHA_ACT'] = (new DateTime())->format('Y-m-d H:i:s');
-        $data['USUARIO_ACT'] =  $this->session->userdata('email');
         return $data;
     }
 }

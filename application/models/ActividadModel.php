@@ -1,5 +1,5 @@
 <?php
-class ContenidoModel extends CI_Model
+class ActividadModel extends CI_Model
 {
     function __construct()
     {
@@ -13,7 +13,7 @@ class ContenidoModel extends CI_Model
     public function getAll()
     {
         $result = null;
-        $sql = "SELECT * FROM contenido WHERE estado = 1 ";
+        $sql = "SELECT * FROM actividad WHERE estado = 1 ";
 
         $query = $this->db->query($sql);
 
@@ -25,11 +25,10 @@ class ContenidoModel extends CI_Model
         return $result;
     }
 
-    public function getMisContenidos()
+    public function getByCurso($idCurso)
     {
         $result = null;
-        $uid = $this->session->userdata('UID');
-        $sql = "SELECT * FROM contenido WHERE estado = 1 AND id_usuario=$uid ";
+        $sql = "SELECT * FROM actividad WHERE estado = 1 AND id_curso=$idCurso ";
 
         $query = $this->db->query($sql);
 
@@ -44,11 +43,11 @@ class ContenidoModel extends CI_Model
     public function getPublicados()
     {
         $result = null;
-        $sql = "SELECT contenido.*, persona.* 
-                FROM contenido
-                INNER JOIN usuario ON usuario.id_usuario = contenido.id_usuario
+        $sql = "SELECT actividad.*, persona.* 
+                FROM actividad
+                INNER JOIN usuario ON usuario.id_usuario = actividad.id_usuario
                 INNER JOIN persona ON persona.id_persona = usuario.id_persona
-                WHERE contenido.estado = 1 AND fecha_publicacion IS NOT NULL ";
+                WHERE actividad.estado = 1 AND fecha_publicacion IS NOT NULL ";
 
         $query = $this->db->query($sql);
 
@@ -60,14 +59,12 @@ class ContenidoModel extends CI_Model
         return $result;
     }
 
-    public function getOne($idContenido)
+    public function getOne($idActividad)
     {
         $result = null;
-        $sql = "SELECT  contenido.*, persona.*
-                FROM contenido 
-                INNER JOIN usuario ON usuario.id_usuario = contenido.id_usuario
-                INNER JOIN persona ON persona.id_persona = usuario.id_persona
-                WHERE ID_CONTENIDO = $idContenido AND contenido.ESTADO = 1 ";
+        $sql = "SELECT  actividad.*
+                FROM actividad 
+                WHERE ID_ACTIVIDAD = $idActividad AND actividad.ESTADO = 1 ";
 
         $query = $this->db->query($sql);
 
@@ -79,21 +76,22 @@ class ContenidoModel extends CI_Model
         return $result;
     }
 
-    public function createOne()
+    public function createOne($idCurso)
     {
         $data = addDatosAuditoria($this->setData());
-        $this->db->insert('contenido', $data);
+        $data['ID_CURSO'] = $idCurso;
+        $this->db->insert('actividad', $data);
         $insert_id = $this->db->insert_id();
         return $insert_id;
     }
 
-    public function updateOne($idContenido)
+    public function updateOne($idActividad)
     {
         $data = uptDatosAuditoria($this->setData());
-        $this->db->update('contenido', $data, array('ID_CONTENIDO' => $idContenido));
+        $this->db->update('actividad', $data, array('ID_ACTIVIDAD' => $idActividad));
     }
 
-    public function publicar($idContenido, $publicar = true)
+    public function publicar($idActividad, $publicar = true)
     {
         $data = [];
         if ($publicar) {
@@ -101,35 +99,25 @@ class ContenidoModel extends CI_Model
         } else {
             $data['FECHA_PUBLICACION'] = null;
         }
-        $this->db->update('contenido', $data, array('ID_CONTENIDO' => $idContenido));
+        $this->db->update('actividad', $data, array('ID_ACTIVIDAD' => $idActividad));
     }
 
-    public function deleteOne($idContenido)
+    public function deleteOne($idActividad)
     {
-        //$this->db->delete('contenido', array('ID_ROL' => $idPersona));
+        //$this->db->delete('actividad', array('ID_ROL' => $idPersona));
         $this->ESTADO = 0;
-        $this->db->update('contenido', $this, array('ID_CONTENIDO' => $idContenido));
+        $this->db->update('actividad', $this, array('ID_ACTIVIDAD' => $idActividad));
     }
 
     private function setData()
     {
         $data = [];
 
-        $data['ID_USUARIO'] = $this->session->userdata('UID');
-
         if (isset($_POST['TITULO'])) {
             $data['TITULO'] = $_POST['TITULO'];
         }
-        if (isset($_POST['SUB_TITULO'])) {
-            $data['SUB_TITULO'] = $_POST['SUB_TITULO'];
-        }
         if (isset($_POST['DESCRIPCION'])) {
             $data['DESCRIPCION'] = $_POST['DESCRIPCION'];
-        }
-        if (isset($_POST['PUBLICAR'])) {
-            $data['FECHA_PUBLICACION'] = (new DateTime())->format('Y-m-d');
-        } else {
-            $data['FECHA_PUBLICACION'] = null;
         }
         return $data;
     }

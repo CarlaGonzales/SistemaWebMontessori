@@ -59,7 +59,7 @@
                                             <td>
                                                 <a href="<?php echo base_url() ?>curso/editar/<?php echo $curso->ID_CURSO; ?>"><span class="badge bg-success"><i class="fas fa-edit"></i> Editar</span></a>
                                                 <a href="<?php echo base_url() ?>curso/eliminar/<?php echo $curso->ID_CURSO; ?>"><span class="badge bg-danger"><i class="fas fa-trash-alt"></i> Eliminar</span></a>
-                                                        <a href="<?php echo base_url() ?>curso/actividades/<?php echo $curso->ID_CURSO; ?>"><span class="badge bg-primary"><i class="fas fa-tasks"></i> Actividades</span></a>
+                                                        <a href="<?php echo base_url() ?>actividad/index/<?php echo $curso->ID_CURSO; ?>"><span class="badge bg-primary"><i class="fas fa-tasks"></i> Actividades</span></a>
                                             </td>
                                         </tr>
                                     <?php } ?>

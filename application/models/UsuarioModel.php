@@ -12,6 +12,8 @@ class UsuarioModel extends CI_Model
         // Call the Model constructor
         parent::__construct();
         $this->load->database();
+        $ci = get_instance();
+        $ci->load->helper('auditoria');
     }
 
     public function getAll()

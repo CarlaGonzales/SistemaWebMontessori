@@ -6,6 +6,8 @@ class AreaCategoriaModel extends CI_Model
         // Call the Model constructor
         parent::__construct();
         $this->load->database();
+        $ci = get_instance();
+        $ci->load->helper('auditoria');
     }
 
     public function getAll()
@@ -83,21 +85,6 @@ class AreaCategoriaModel extends CI_Model
             }
         }
 
-        return $data;
-    }
-
-    private function addDatosAuditoria($data)
-    {
-        $data['FECHA_REG'] = (new DateTime())->format('Y-m-d H:i:s');
-        $data['USUARIO_REG'] =  $this->session->userdata('email');
-        $data['ESTADO'] = 1;
-        return $data;
-    }
-
-    private function uptDatosAuditoria($data)
-    {
-        $data['FECHA_ACT'] = (new DateTime())->format('Y-m-d H:i:s');
-        $data['USUARIO_ACT'] =  $this->session->userdata('email');
         return $data;
     }*/
 }

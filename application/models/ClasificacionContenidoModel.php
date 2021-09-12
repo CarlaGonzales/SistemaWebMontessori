@@ -6,6 +6,8 @@ class ClasificacionContenidoModel extends CI_Model
         // Call the Model constructor
         parent::__construct();
         $this->load->database();
+        $ci = get_instance();
+        $ci->load->helper('auditoria');
     }
 
     public function getByContenido($idContenido)
@@ -73,31 +75,16 @@ class ClasificacionContenidoModel extends CI_Model
                     $oneData = [];
                     $oneData['ID_CATDIM'] = $areaCategoria;
                     $oneData['ID_CONTENIDO'] = strval($idContenido);
-                    array_push($data, $this->addDatosAuditoria($oneData));
+                    array_push($data, addDatosAuditoria($oneData));
                 }
             } else {
                 $oneData = [];
                 $oneData['ID_CATDIM'] = $_POST['AREA_CATEGORIA'];
                 $oneData['ID_CONTENIDO'] = strval($idContenido);
-                array_push($data, $this->addDatosAuditoria($oneData));
+                array_push($data, addDatosAuditoria($oneData));
             }
         }
 
-        return $data;
-    }
-
-    private function addDatosAuditoria($data)
-    {
-        $data['FECHA_REG'] = (new DateTime())->format('Y-m-d H:i:s');
-        $data['USUARIO_REG'] =  $this->session->userdata('email');
-        $data['ESTADO'] = 1;
-        return $data;
-    }
-
-    private function uptDatosAuditoria($data)
-    {
-        $data['FECHA_ACT'] = (new DateTime())->format('Y-m-d H:i:s');
-        $data['USUARIO_ACT'] =  $this->session->userdata('email');
         return $data;
     }
 }

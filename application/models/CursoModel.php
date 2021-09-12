@@ -6,6 +6,8 @@ class CursoModel extends CI_Model
         // Call the Model constructor
         parent::__construct();
         $this->load->database();
+        $ci = get_instance();
+        $ci->load->helper('auditoria');
     }
 
     public function getAll()
@@ -79,7 +81,7 @@ class CursoModel extends CI_Model
 
     public function createOne()
     {
-        $data = $this->addDatosAuditoria($this->setData());
+        $data = addDatosAuditoria($this->setData());
         $this->db->insert('curso', $data);
         $insert_id = $this->db->insert_id();
         return $insert_id;
@@ -87,7 +89,7 @@ class CursoModel extends CI_Model
 
     public function updateOne($idCurso)
     {
-        $data = $this->uptDatosAuditoria($this->setData());
+        $data = uptDatosAuditoria($this->setData());
         $this->db->update('curso', $data, array('ID_CURSO' => $idCurso));
     }
 
@@ -129,21 +131,6 @@ class CursoModel extends CI_Model
         } else {
             $data['FECHA_PUBLICACION'] = null;
         }
-        return $data;
-    }
-
-    private function addDatosAuditoria($data)
-    {
-        $data['FECHA_REG'] = (new DateTime())->format('Y-m-d H:i:s');
-        $data['USUARIO_REG'] =  $this->session->userdata('email');
-        $data['ESTADO'] = 1;
-        return $data;
-    }
-
-    private function uptDatosAuditoria($data)
-    {
-        $data['FECHA_ACT'] = (new DateTime())->format('Y-m-d H:i:s');
-        $data['USUARIO_ACT'] =  $this->session->userdata('email');
         return $data;
     }
 }
