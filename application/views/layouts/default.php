@@ -195,11 +195,9 @@
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-                        <li class="nav-item">
-                            <!-- Menu para el rol administrador -->
-                            <?php if ($this->session->userdata('rol') == 'Administrador') { ?>
+                        <!-- Menu para el rol administrador -->
+                        <?php if ($this->session->userdata('rol') == 'Administrador') { ?>
+                            <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-tachometer-alt"></i>
                                     <p>
@@ -245,8 +243,10 @@
                                         </a>
                                     </li>
                                 </ul>
-                            <?php } ?>
-                            <?php if ($this->session->userdata('rol') == 'Tutor') { ?>
+                            </li>
+                        <?php } ?>
+                        <?php if ($this->session->userdata('rol') == 'Tutor') { ?>
+                            <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-tachometer-alt"></i>
                                     <p>
@@ -268,8 +268,33 @@
                                         </a>
                                     </li>
                                 </ul>
-                            <?php } ?>
-                            <?php if ($this->session->userdata('rol') == 'Especialista') { ?>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <p>
+                                        Cursos
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="<?php echo base_url(); ?>inicio" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Cursos</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?php echo base_url(); ?>contenido/listar" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Mis cursos</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <?php } ?>
+                        <?php if ($this->session->userdata('rol') == 'Especialista') { ?>
+                            <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-tachometer-alt"></i>
                                     <p>
@@ -297,8 +322,8 @@
                                         </a>
                                     </li>
                                 </ul>
-                            <?php } ?>
-                        </li>
+                            </li>
+                        <?php } ?>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
