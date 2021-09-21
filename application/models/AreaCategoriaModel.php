@@ -29,17 +29,64 @@ class AreaCategoriaModel extends CI_Model
         return $result;
     }
 
-    /*public function createOne($idContenido)
-    {
-        $this->db->insert_batch('area_categoria', $this->setData($idContenido));
-    }
-
-    public function getOne($idArea)
+    public function getAreasByCategoria($idCategoria)
     {
         $result = null;
         $sql = "SELECT  area.*
-                FROM area 
-                WHERE ID_AREA = $idArea AND area.ESTADO = 1 ";
+                FROM area_categoria 
+                INNER JOIN area ON area.ID_AREA = area_categoria.ID_AREA
+                WHERE area_categoria.ID_CATEGORIA = $idCategoria AND area_categoria.ESTADO = 1 ";
+
+        $query = $this->db->query($sql);
+
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            return $result;
+        }
+
+        return $result;
+    }
+
+    public function getCategoriasByArea($idArea)
+    {
+        $result = null;
+        $sql = "SELECT  categoria.*
+                FROM area_categoria 
+                INNER JOIN categoria ON categoria.ID_CATEGORIA = area_categoria.ID_CATEGORIA
+                WHERE area_categoria.ID_AREA = $idArea AND area_categoria.ESTADO = 1 ";
+
+        $query = $this->db->query($sql);
+
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            return $result;
+        }
+
+        return $result;
+    }
+
+    public function createAreas($idCategoria)
+    {
+        $this->deleteByCategoria($idCategoria);
+        $datas = $this->setDataAreas($idCategoria);
+        if (isset($datas)) {
+            foreach ($datas as $data) {
+                $areaCategoria = $this->getOne($data['ID_CATEGORIA'], $data['ID_AREA']);
+                if (!isset($areaCategoria)) {
+                    $this->db->insert('area_categoria', $data);
+                } else {
+                    $this->db->update('area_categoria', uptDatosAuditoria(array('ESTADO' => 1)), array('ID_CATEGORIA' => $data['ID_CATEGORIA'], 'ID_AREA' => $data['ID_AREA']));
+                }
+            }
+        }
+    }
+
+    public function getOne($idCategoria, $idArea)
+    {
+        $result = null;
+        $sql = "SELECT *
+                FROM area_categoria 
+                WHERE ID_AREA = $idCategoria AND ID_AREA = $idArea ";
 
         $query = $this->db->query($sql);
 
@@ -51,40 +98,32 @@ class AreaCategoriaModel extends CI_Model
         return $result;
     }
 
-    
-
-    public function updateOne($idArea)
-    {
-        $data = $this->uptDatosAuditoria($this->setData());
-        $this->db->update('area', $data, array('ID_AREA' => $idArea));
-    }
-
-    public function deleteOne($idArea)
-    {
-        //$this->db->delete('area', array('ID_ROL' => $idPersona));
-        $this->ESTADO = 0;
-        $this->db->update('area', $this, array('ID_AREA' => $idArea));
-    }
-    
-    private function setData($idContenido)
+    private function setDataAreas($idCategoria)
     {
         $data = [];
-        if (isset($_POST['AREA_CATEGORIA'])) {
-            if (is_array($_POST['AREA_CATEGORIA'])) {
-                foreach ($_POST['AREA_CATEGORIA'] as $areaCategoria) {
+        if (isset($_POST['AREAS'])) {
+            if (is_array($_POST['AREAS'])) {
+                foreach ($_POST['AREAS'] as $area) {
                     $oneData = [];
-                    $oneData['ID_CATDIM'] = $areaCategoria;
-                    $oneData['ID_CONTENIDO'] = strval($idContenido);
-                    array_push($data, $this->addDatosAuditoria($oneData));
+
+
+                    $oneData['ID_AREA'] = $area;
+                    $oneData['ID_CATEGORIA'] = strval($idCategoria);
+                    array_push($data, addDatosAuditoria($oneData));
                 }
             } else {
                 $oneData = [];
-                $oneData['ID_CATDIM'] = $_POST['AREA_CATEGORIA'];
-                $oneData['ID_CONTENIDO'] = strval($idContenido);
-                array_push($data, $this->addDatosAuditoria($oneData));
+                $oneData['ID_AREA'] = $_POST['AREAS'];
+                $oneData['ID_CATEGORIA'] = strval($idCategoria);
+                array_push($data, addDatosAuditoria($oneData));
             }
         }
 
         return $data;
-    }*/
+    }
+
+    public function deleteByCategoria($idCategoria)
+    {
+        $this->db->update('area_categoria', array('ESTADO' => 0), array('ID_CATEGORIA' => $idCategoria));
+    }
 }

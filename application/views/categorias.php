@@ -46,7 +46,7 @@
 											</td>
 											<td>
 												<a href="<?php echo base_url() ?>categoria/editar/<?php echo $categoria->ID_CATEGORIA; ?>"><span class="badge bg-success"><i class="fas fa-edit"></i> Editar</span></a>
-												<a href="<?php echo base_url() ?>categoria/eliminar/<?php echo $categoria->ID_CATEGORIA; ?>"><span class="badge bg-danger"><i class="fas fa-trash-alt"></i>Eliminar</span< /a>
+												<a href="<?php echo base_url() ?>categoria/eliminar/<?php echo $categoria->ID_CATEGORIA; ?>"><span class="badge bg-danger"><i class="fas fa-trash-alt"></i> Eliminar</span></a>
 											</td>
 										</tr>
 									<?php } ?>

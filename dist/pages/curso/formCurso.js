@@ -14,4 +14,15 @@ $("#summernote").summernote({
 	],
 });
 
-$('.select2').select2();
+$(".select2").select2();
+
+$(".selectSearch").select2();
+
+$(".selectSearch").on("select2:select", function (e) {
+	let selected = $(".selectSearch").select2("val").join("-");
+	window.location = base_url + "curso/miscursos/" + selected;
+});
+$(".selectSearch").on("select2:unselect", function (e) {
+	let selected = $(".selectSearch").select2("val").join("-");
+	window.location = base_url + "curso/miscursos/" + selected;
+});

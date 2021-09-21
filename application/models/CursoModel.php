@@ -60,6 +60,53 @@ class CursoModel extends CI_Model
         return $result;
     }
 
+    public function getSugerencias($filtro = "")
+    {
+        $result = null;
+        $filtroQuery = (isset($filtro) && $filtro != "") ? "INNER JOIN clasificacion_curso ON clasificacion_curso.id_curso = curso.id_curso AND clasificacion_curso.id_catdim IN ($filtro)" : "";
+        $uid = $this->session->userdata('UID');
+        $sql = "SELECT DISTINCT curso.*, persona.* 
+                FROM curso
+                INNER JOIN usuario ON usuario.id_usuario = curso.id_usuario
+                INNER JOIN persona ON persona.id_persona = usuario.id_persona
+                $filtroQuery
+                WHERE curso.estado = 1 AND fecha_publicacion IS NOT NULL
+                AND curso.id_curso NOT IN ( SELECT curso_inscrito.id_curso
+                                            FROM curso_inscrito
+                                            WHERE curso_inscrito.id_usuario = $uid )";
+
+        $query = $this->db->query($sql);
+
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            return $result;
+        }
+
+        return $result;
+    }
+
+    public function misCursosInscritos($filtro = "")
+    {
+        $result = null;
+        $uid = $this->session->userdata('UID');
+        $filtroQuery = (isset($filtro) && $filtro != "") ? "INNER JOIN clasificacion_curso ON clasificacion_curso.id_curso = curso.id_curso AND clasificacion_curso.id_catdim IN ($filtro)" : "";
+        $sql = "SELECT DISTINCT curso.*, persona.* 
+                FROM curso
+                INNER JOIN usuario ON usuario.id_usuario = curso.id_usuario
+                INNER JOIN persona ON persona.id_persona = usuario.id_persona
+                INNER JOIN curso_inscrito ON curso_inscrito.id_curso = curso.id_curso AND curso_inscrito.id_usuario = $uid
+                $filtroQuery
+                WHERE curso.estado = 1 AND curso.fecha_publicacion IS NOT NULL ";
+        $query = $this->db->query($sql);
+
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            return $result;
+        }
+
+        return $result;
+    }
+
     public function getOne($idCurso)
     {
         $result = null;

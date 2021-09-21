@@ -17,6 +17,9 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>dist/css/adminlte.css">
     <?php echo $this->layouts->print_includes_css(); ?>
+    <script>
+        var base_url = "<?php echo base_url(); ?>";
+    </script>
 </head>
 
 <body>
@@ -279,15 +282,15 @@
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="<?php echo base_url(); ?>inicio" class="nav-link">
+                                        <a href="<?php echo base_url(); ?>curso/miscursos" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Cursos</p>
+                                            <p>Mis aprendizaje</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="<?php echo base_url(); ?>contenido/listar" class="nav-link">
+                                        <a href="<?php echo base_url(); ?>curso/sugerencias" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Mis cursos</p>
+                                            <p>Sugerencias</p>
                                         </a>
                                     </li>
                                 </ul>

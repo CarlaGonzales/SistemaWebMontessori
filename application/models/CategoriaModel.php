@@ -46,6 +46,9 @@ class CategoriaModel extends CI_Model
     {
         $data = addDatosAuditoria($this->setData());
         $this->db->insert('categoria', $data);
+        $insert_id = $this->db->insert_id();
+        return $insert_id;
+
     }
 
     public function updateOne($idCategoria)

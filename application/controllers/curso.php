@@ -11,8 +11,10 @@ class Curso extends CI_Controller
 		$this->load->library('Layouts');
 		$this->load->library('session');
 		$this->load->model('CursoModel', 'mCurso');
+		$this->load->model('CursoInscritoModel', 'mCursoInscrito');
 		$this->load->model('AreaCategoriaModel', 'mAreaCategoria');
 		$this->load->model('ClasificacionCursoModel', 'mClasificacionCurso');
+		$this->load->model('AreaCategoriaModel', 'mAreaCategoria');
 		if ($this->session->userdata('username') == '') {
 			redirect('/ingreso');
 		}
@@ -104,5 +106,51 @@ class Curso extends CI_Controller
 	{
 		$this->mCurso->publicar($idCurso, false);
 		redirect('curso/index');
+	}
+
+	public function sugerencias($filtro = "")
+	{
+		$this->load->model('ContenidoModel', 'mContenido');
+		$filtro = (isset($filtro)) ? explode("-", $filtro) : [];
+		$cursos = $this->mCurso->getSugerencias(implode(',', $filtro));
+		$area_categoria = $this->mAreaCategoria->getAll();
+		$this->layouts->view('curso/sugerencia', compact('cursos', 'area_categoria', 'filtro'));
+	}
+
+	public function miscursos($filtro = "")
+	{
+		$this->load->model('ContenidoModel', 'mContenido');
+		$filtro = (isset($filtro)) ? explode("-", $filtro) : [];
+		$cursos = $this->mCurso->misCursosInscritos(implode(',', $filtro));
+		$area_categoria = $this->mAreaCategoria->getAll();
+		$this->layouts->view('curso/miscursos', compact('cursos', 'area_categoria', 'filtro'));
+	}
+
+	public function inscribirse($idCurso)
+	{
+		$curso = $this->mCurso->getOne($idCurso);
+		$lblBoton = 'Inscribirse';
+		$lnkBoton = 'save_inscripcion';
+		$this->layouts->view('curso/readCurso', compact('curso', 'lblBoton', 'lnkBoton'));
+	}
+
+	public function save_inscripcion($idCurso)
+	{
+		$this->mCursoInscrito->createOne($idCurso);
+		redirect('curso/sugerencias');
+	}
+
+	public function desinscribirse($idCurso)
+	{
+		$curso = $this->mCurso->getOne($idCurso);
+		$lblBoton = "Desinscribirse";
+		$lnkBoton = 'save_desinscripcion';
+		$this->layouts->view('curso/readCurso', compact('curso', 'lblBoton', 'lnkBoton'));
+	}
+
+	public function save_desinscripcion($idCurso)
+	{
+		$this->mCursoInscrito->deleteOne($idCurso);
+		redirect('curso/miscursos');
 	}
 }
