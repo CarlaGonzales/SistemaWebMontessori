@@ -55,12 +55,20 @@
 										<div class="card mb-2">
 											<img class="card-img-top" height="250" src="<?php echo base_url(); ?>dist/img/Monte<?= random_int(1, 5) ?>.png" alt="<?= $curso->TITULO ?>">
 											<div class="card-img-overlay d-flex flex-column justify-content-center">
-												<h5 style="color:black; border-radius: 5px; background: #ffc107; opacity: 0.5;" class="card-title  mt-5 pt-2"><?= $curso->TITULO ?></h5>
-												<p style="color:black; border-radius: 5px; background: #ffc107; opacity: 0.5;" class="card-text pb-2 pt-1 "><?= $curso->SUB_TITULO ?></p>
-												<a style="color:black; border-radius: 5px; background: #ffc107; opacity: 0.5;" class="" href="<?php echo base_url(); ?>curso/desinscribirse/<?= $curso->ID_CURSO ?>" class="text-white">
+												<h2 style="font-size:1.5em; font-weight: bold; color:black; border-radius: 5px; background: #d7dddd; opacity: 0.5;" class="card-title  mt-5 pt-2"><?= $curso->TITULO ?></h2>
+												<p style="font-weight: bold; color:black; border-radius: 5px; background: #d7dddd; opacity: 0.5;" class="card-text pb-2 pt-1 "><?= $curso->SUB_TITULO ?></p>
+												<div style="font-weight: bold; color:black; border-radius: 5px; background: #d7dddd; opacity: 0.5;">
 													Publicado: <?= $curso->FECHA_PUBLICACION ?><br />
 													Autor: <?= $curso->NOMBRE ?> <?= $curso->APELLIDO_PAT ?> <?= $curso->APELLIDO_MAT ?>
-												</a>
+												</div>
+												<div class="row">
+													<div class="col-md-5">
+														<a href="<?php echo base_url(); ?>curso/desinscribirse/<?= $curso->ID_CURSO ?>" class="btn btn-block btn-success">Desinscribirse</a>
+													</div>
+													<div class="col-md-5">
+														<a href="<?php echo base_url(); ?>curso/desinscribirse/<?= $curso->ID_CURSO ?>" class="btn btn-block bg-gradient-info">Actividades</a>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>

@@ -131,7 +131,8 @@ class Curso extends CI_Controller
 		$curso = $this->mCurso->getOne($idCurso);
 		$lblBoton = 'Inscribirse';
 		$lnkBoton = 'save_inscripcion';
-		$this->layouts->view('curso/readCurso', compact('curso', 'lblBoton', 'lnkBoton'));
+		$lnkCancel = 'sugerencias';
+		$this->layouts->view('curso/readCurso', compact('curso', 'lblBoton', 'lnkBoton', 'lnkCancel'));
 	}
 
 	public function save_inscripcion($idCurso)
@@ -145,12 +146,18 @@ class Curso extends CI_Controller
 		$curso = $this->mCurso->getOne($idCurso);
 		$lblBoton = "Desinscribirse";
 		$lnkBoton = 'save_desinscripcion';
-		$this->layouts->view('curso/readCurso', compact('curso', 'lblBoton', 'lnkBoton'));
+		$lnkCancel = 'miscursos';
+		$this->layouts->view('curso/readCurso', compact('curso', 'lblBoton', 'lnkBoton', 'lnkCancel'));
 	}
 
 	public function save_desinscripcion($idCurso)
 	{
 		$this->mCursoInscrito->deleteOne($idCurso);
 		redirect('curso/miscursos');
+	}
+
+	public function tutorial()
+	{
+		$this->layouts->view('curso/tutorial');
 	}
 }

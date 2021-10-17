@@ -42,7 +42,7 @@
   <!-- /.card-body -->
   <div class="card-footer">
     <a href="<?php echo base_url() ?>curso/<?php  echo $lnkBoton; ?>/<?php echo $curso->ID_CURSO ?>" class="btn btn-primary"><?php  echo $lblBoton?></a>
-    <a href="<?php echo base_url() ?>curso/sugerencias" class="btn btn-default float-right">Cancelar</a>
+    <a href="<?php echo base_url() ?>curso/<?php  echo $lnkCancel; ?>" class="btn btn-default float-right">Cancelar</a>
   </div>
   <!-- /.card-footer -->
 </div>

@@ -293,6 +293,12 @@
                                             <p>Sugerencias</p>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="<?php echo base_url(); ?>curso/tutorial" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p> Tutorial</p>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         <?php } ?>
@@ -376,6 +382,7 @@
     <script src="<?php echo base_url(); ?>dist/js/demo.js"></script>
 
     <?php echo $this->layouts->print_includes_js(); ?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
     <!-- Page specific script -->
     <script>
         $(function() {
@@ -394,6 +401,7 @@
                 "autoWidth": false,
                 "responsive": true,
             });
+            $('#fotorama').fotorama();
         });
     </script>
 </body>
