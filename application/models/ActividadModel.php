@@ -87,6 +87,7 @@ class ActividadModel extends CI_Model
 
     public function updateOne($idActividad)
     {
+        unset($_POST['files']);
         $data = uptDatosAuditoria($this->setData());
         $this->db->update('actividad', $data, array('ID_ACTIVIDAD' => $idActividad));
     }
@@ -118,6 +119,15 @@ class ActividadModel extends CI_Model
         }
         if (isset($_POST['DESCRIPCION'])) {
             $data['DESCRIPCION'] = $_POST['DESCRIPCION'];
+        }
+        if (isset($_POST['IMAGEN'])) {
+            $data['IMAGEN'] = $_POST['IMAGEN'];
+        }
+        if (isset($_POST['VIDEO'])) {
+            $data['VIDEO'] = $_POST['VIDEO'];
+        }
+        if (isset($_POST['AUDIO'])) {
+            $data['AUDIO'] = $_POST['AUDIO'];
         }
         return $data;
     }

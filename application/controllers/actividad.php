@@ -21,8 +21,13 @@ class Actividad extends CI_Controller
 		$this->layouts->add_include_css('plugins/summernote/summernote-bs4.min.css');
 		$this->layouts->add_include_js('plugins/summernote/summernote-bs4.min.js');
 		$this->layouts->add_include_js('plugins/summernote/lang/summernote-es-ES.js');
+
+		$this->layouts->add_include_css('plugins/dropzone/dropzone.css');
+		$this->layouts->add_include_js('plugins/dropzone/dropzone.js');
+
 		$this->layouts->add_include_js('plugins/select2/js/select2.full.min.js');
 		$this->layouts->add_include_js('dist/pages/actividad/formActividad.js');
+		$this->layouts->add_include_js('dist/pages/upload/upload.js');
 	}
 
 	public function index($idCurso)

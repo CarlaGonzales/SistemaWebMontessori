@@ -24,6 +24,33 @@
                     <textarea id="summernote" <?php echo ($isPost) ? '' : 'readonly' ?> required name="DESCRIPCION"><?php echo isset($actividad) ? str_replace('"', "'", $actividad->DESCRIPCION) : ""; ?></textarea>
                 </div>
             </div>
+            <div class="form-group row">
+                <label for="IMAGEN" class="col-sm-2 col-form-label">Imagen</label>
+                <input id="IMAGEN" name="IMAGEN" type="hidden" <?php echo ($isPost) ? '' : 'readonly' ?> value="<?php echo isset($actividad) ? $actividad->IMAGEN : ""; ?>" required >
+                <div class="col-sm-10">
+                    <div id="dZUploadImg" class="dropzone">
+                        <div class="dz-default dz-message"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="AUDIO" class="col-sm-2 col-form-label">Audio</label>
+                <input id="AUDIO" name="AUDIO" type="hidden" <?php echo ($isPost) ? '' : 'readonly' ?> value="<?php echo isset($actividad) ? $actividad->AUDIO : ""; ?>" required >
+                <div class="col-sm-10">
+                    <div id="dZUploadAud" class="dropzone">
+                        <div class="dz-default dz-message"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="VIDEO" class="col-sm-2 col-form-label">Video</label>
+                <input id="VIDEO" name="VIDEO" type="hidden" <?php echo ($isPost) ? '' : 'readonly' ?> value="<?php echo isset($actividad) ? $actividad->VIDEO : ""; ?>" required >
+                <div class="col-sm-10">
+                    <div id="dZUploadVdo" class="dropzone">
+                        <div class="dz-default dz-message"></div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
