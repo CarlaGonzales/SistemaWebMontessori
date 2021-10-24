@@ -66,7 +66,7 @@
 														<a href="<?php echo base_url(); ?>curso/desinscribirse/<?= $curso->ID_CURSO ?>" class="btn btn-block btn-success">Desinscribirse</a>
 													</div>
 													<div class="col-md-5">
-														<a href="<?php echo base_url(); ?>curso/desinscribirse/<?= $curso->ID_CURSO ?>" class="btn btn-block bg-gradient-info">Actividades</a>
+														<a href="<?php echo base_url(); ?>curso/temario/<?= $curso->ID_CURSO ?>" class="btn btn-block bg-gradient-info">Actividades</a>
 													</div>
 												</div>
 											</div>

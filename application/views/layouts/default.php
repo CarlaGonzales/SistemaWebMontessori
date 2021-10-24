@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>dist/css/adminlte.css">
+    <link  href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
     <?php echo $this->layouts->print_includes_css(); ?>
     <script>
         var base_url = "<?php echo base_url(); ?>";
@@ -380,9 +381,8 @@
     <script src="<?php echo base_url(); ?>dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="<?php echo base_url(); ?>dist/js/demo.js"></script>
-
-    <?php echo $this->layouts->print_includes_js(); ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+    <?php echo $this->layouts->print_includes_js(); ?>
     <!-- Page specific script -->
     <script>
         $(function() {
@@ -401,7 +401,6 @@
                 "autoWidth": false,
                 "responsive": true,
             });
-            $('#fotorama').fotorama();
         });
     </script>
 </body>

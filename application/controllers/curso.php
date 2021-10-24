@@ -15,6 +15,7 @@ class Curso extends CI_Controller
 		$this->load->model('AreaCategoriaModel', 'mAreaCategoria');
 		$this->load->model('ClasificacionCursoModel', 'mClasificacionCurso');
 		$this->load->model('AreaCategoriaModel', 'mAreaCategoria');
+		$this->load->model('ActividadModel', 'mActividad');
 		if ($this->session->userdata('username') == '') {
 			redirect('/ingreso');
 		}
@@ -160,4 +161,12 @@ class Curso extends CI_Controller
 	{
 		$this->layouts->view('curso/tutorial');
 	}
+	public function temario($idCurso)
+	{
+		$this->layouts->add_include_js('dist/pages/curso/temario.js');
+		$actividades = $this->mActividad->getByCurso($idCurso);
+		$curso = $this->mCurso->getOne($idCurso);
+		$this->layouts->view('temario', compact('actividades', 'idCurso', 'curso'));
+	}
+
 }
