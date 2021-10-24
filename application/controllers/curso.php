@@ -115,7 +115,15 @@ class Curso extends CI_Controller
 		$filtro = (isset($filtro)) ? explode("-", $filtro) : [];
 		$cursos = $this->mCurso->getSugerencias(implode(',', $filtro));
 		$area_categoria = $this->mAreaCategoria->getAll();
-		$this->layouts->view('curso/sugerencia', compact('cursos', 'area_categoria', 'filtro'));
+
+		$imagenes = array(
+			'0' => $this->listarArchivos(getcwd()."/img/areas/0/"),
+			'1' => $this->listarArchivos(getcwd()."/img/areas/1/"),
+			'2' => $this->listarArchivos(getcwd()."/img/areas/2/"),
+			'3' => $this->listarArchivos(getcwd()."/img/areas/3/"),
+			'4' => $this->listarArchivos(getcwd()."/img/areas/4/")
+		);
+		$this->layouts->view('curso/sugerencia', compact('cursos', 'area_categoria', 'filtro', 'imagenes'));
 	}
 
 	public function miscursos($filtro = "")
@@ -124,7 +132,39 @@ class Curso extends CI_Controller
 		$filtro = (isset($filtro)) ? explode("-", $filtro) : [];
 		$cursos = $this->mCurso->misCursosInscritos(implode(',', $filtro));
 		$area_categoria = $this->mAreaCategoria->getAll();
-		$this->layouts->view('curso/miscursos', compact('cursos', 'area_categoria', 'filtro'));
+		
+		$imagenes = array(
+			'0' => $this->listarArchivos(getcwd()."/img/areas/0/"),
+			'1' => $this->listarArchivos(getcwd()."/img/areas/1/"),
+			'2' => $this->listarArchivos(getcwd()."/img/areas/2/"),
+			'3' => $this->listarArchivos(getcwd()."/img/areas/3/"),
+			'4' => $this->listarArchivos(getcwd()."/img/areas/4/")
+		);
+		$this->layouts->view('curso/miscursos', compact('cursos', 'area_categoria', 'filtro', 'imagenes'));
+	}
+
+	function listarArchivos($path)
+	{
+		// Abrimos la carpeta que nos pasan como parámetro
+		$dir = opendir($path);
+		$respuesta = array();
+		// Leo todos los ficheros de la carpeta
+		while ($elemento = readdir($dir)) {
+			// Tratamos los elementos . y .. que tienen todas las carpetas
+			if ($elemento != "." && $elemento != "..") {
+				// Si es una carpeta
+				if (is_dir($path . $elemento)) {
+					// Muestro la carpeta
+					//echo "<p><strong>CARPETA: " . $elemento . "</strong></p>";
+					// Si es un fichero
+				} else {
+					// Muestro el fichero
+					array_push($respuesta, $elemento);
+					//echo "<br />" . $elemento;
+				}
+			}
+		}
+		return $respuesta;
 	}
 
 	public function inscribirse($idCurso)
@@ -161,6 +201,7 @@ class Curso extends CI_Controller
 	{
 		$this->layouts->view('curso/tutorial');
 	}
+
 	public function temario($idCurso)
 	{
 		$this->layouts->add_include_js('dist/pages/curso/temario.js');
@@ -168,5 +209,4 @@ class Curso extends CI_Controller
 		$curso = $this->mCurso->getOne($idCurso);
 		$this->layouts->view('temario', compact('actividades', 'idCurso', 'curso'));
 	}
-
 }

@@ -53,7 +53,11 @@
 								<?php foreach ($cursos as $curso) { ?>
 									<div class="col-md-12 col-lg-6 col-xl-4">
 										<div class="card mb-2">
-											<img class="card-img-top" height="250" src="<?php echo base_url(); ?>dist/img/Monte<?= random_int(1, 5) ?>.png" alt="<?= $curso->TITULO ?>">
+											<?php
+											$entrada = $imagenes[$curso->ID_AREA . ''];
+											$claves_aleatorias = array_rand($entrada, 1);
+											?>
+											<img class="card-img-top" height="250" src="<?php echo base_url(); ?>/img/areas/<?= $curso->ID_AREA ?>/<?= $entrada[$claves_aleatorias] ?>" alt="<?= $curso->TITULO ?>">
 											<div class="card-img-overlay d-flex flex-column justify-content-center">
 												<h5 style="font-size:1.5em; font-weight: bold; color:black; border-radius: 5px; background: #d7dddd; opacity: 0.5;" class="card-title  mt-5 pt-2"><?= $curso->TITULO ?></h5>
 												<p style="font-weight: bold; color:black; border-radius: 5px; background: #d7dddd; opacity: 0.5;" class="card-text pb-2 pt-1 "><?= $curso->SUB_TITULO ?></p>

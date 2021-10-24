@@ -65,7 +65,13 @@ class CursoModel extends CI_Model
         $result = null;
         $filtroQuery = (isset($filtro) && $filtro != "") ? "INNER JOIN clasificacion_curso ON clasificacion_curso.id_curso = curso.id_curso AND clasificacion_curso.id_catdim IN ($filtro)" : "";
         $uid = $this->session->userdata('UID');
-        $sql = "SELECT DISTINCT curso.*, persona.* 
+        $sql = "SELECT DISTINCT curso.*, persona.*, (SELECT a.id_area 
+                                                     FROM area a
+                                                     INNER JOIN area_categoria ac ON a.ID_AREA=ac.ID_AREA
+                                                     INNER JOIN clasificacion_curso cc ON ac.ID_CATDIM = cc.ID_CATDIM
+                                                     WHERE cc.id_curso = curso.id_curso
+                                                     ORDER BY RAND() 
+                                                     LIMIT 1) AS ID_AREA 
                 FROM curso
                 INNER JOIN usuario ON usuario.id_usuario = curso.id_usuario
                 INNER JOIN persona ON persona.id_persona = usuario.id_persona
@@ -90,7 +96,13 @@ class CursoModel extends CI_Model
         $result = null;
         $uid = $this->session->userdata('UID');
         $filtroQuery = (isset($filtro) && $filtro != "") ? "INNER JOIN clasificacion_curso ON clasificacion_curso.id_curso = curso.id_curso AND clasificacion_curso.id_catdim IN ($filtro)" : "";
-        $sql = "SELECT DISTINCT curso.*, persona.* 
+        $sql = "SELECT DISTINCT curso.*, persona.*, (SELECT a.id_area 
+                                                     FROM area a
+                                                     INNER JOIN area_categoria ac ON a.ID_AREA=ac.ID_AREA
+                                                     INNER JOIN clasificacion_curso cc ON ac.ID_CATDIM = cc.ID_CATDIM
+                                                     WHERE cc.id_curso = curso.id_curso
+                                                     ORDER BY RAND() 
+                                                     LIMIT 1) AS ID_AREA 
                 FROM curso
                 INNER JOIN usuario ON usuario.id_usuario = curso.id_usuario
                 INNER JOIN persona ON persona.id_persona = usuario.id_persona
