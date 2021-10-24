@@ -52,26 +52,14 @@
 					</div>
 					<!-- /.card-header -->
 					<div class="card-body">
-						<div class="fotorama" data-width="800" data-height="500" data-fit="cover" data-click="false">
+						<div class="fotorama" data-width="800" data-height="500">
 							<div data-img="<?php echo base_url(); ?>dist/img/Monte1.png" class="any inverse">
-								Cuidado Basico en la higiene personal del bebe 0-2 años 
-								<div class="form-group">
-									<div class="custom-control custom-switch">
-										<input type="checkbox" class="custom-control-input" id="customSwitch1">
-										<label class="custom-control-label" for="customSwitch1">Paso 1 Preparar al bebe </label>
-									</div>
-								</div>
+								Cuidado Basico en la higiene personal del bebe 0-2 años
 							</div>
 							<div data-img="<?php echo base_url(); ?>dist/img/Monte2.png" class="any inverse">consejo 001</div>
 							<div data-img="<?php echo base_url(); ?>dist/img/Monte3.png" class="any inverse">sugerencia 008</div>
 							<div data-img="<?php echo base_url(); ?>dist/img/Monte4.png" class="any inverse">
 								Adevetencia 9
-								<div class="form-group">
-									<div class="custom-control custom-switch">
-										<input type="checkbox" class="custom-control-input" id="customSwitch1">
-										<label class="custom-control-label" for="customSwitch1">Toggle this custom switch element</label>
-									</div>
-								</div>
 							</div>
 							<div data-img="<?php echo base_url(); ?>dist/img/Monte5.png" class="any inverse">Estado niñez</div>
 							<div data-img="<?php echo base_url(); ?>dist/img/Inicio.jpg" class="any inverse">bla blas bla</div>
