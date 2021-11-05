@@ -12,6 +12,7 @@ class Actividad extends CI_Controller
 		$this->load->library('session');
 		$this->load->model('ActividadModel', 'mActividad');
 		$this->load->model('CursoModel', 'mCurso');
+		$this->load->model('EstadoActividadModel', 'mEstadoActividad');
 		if ($this->session->userdata('username') == '') {
 			redirect('/ingreso');
 		}
@@ -96,5 +97,27 @@ class Actividad extends CI_Controller
 	{
 		$this->mActividad->publicar($idActividad, false);
 		redirect('actividad/index');
+	}
+
+	public function terminar()
+	{
+		$actividad = $this->mEstadoActividad->getOne($_POST['id_actividad']);
+		if (!isset($actividad)) {
+			$this->mEstadoActividad->createOne($_POST['id_actividad']);
+		}else{
+			$this->mEstadoActividad->updateOne($_POST['id_actividad']);
+		}
+		echo json_encode(array('changed'=>true));
+	}
+
+	public function sugerir()
+	{
+		$actividad = $this->mEstadoActividad->getOne($_POST['id_actividad']);
+		if (!isset($actividad)) {
+			$this->mEstadoActividad->createOne($_POST['id_actividad']);
+		}else{
+			$this->mEstadoActividad->updateOne($_POST['id_actividad']);
+		}
+		echo json_encode(array('changed'=>true));
 	}
 }

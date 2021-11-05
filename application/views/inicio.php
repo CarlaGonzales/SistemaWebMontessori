@@ -54,15 +54,15 @@
 					<div class="card-body">
 						<div class="fotorama" data-width="800" data-height="500">
 							<div data-img="<?php echo base_url(); ?>dist/img/Monte1.png" class="any inverse">
-								Cuidado Basico en la higiene personal del bebe 0-2 años
+							Los niños aprenden de lo que les rodea
 							</div>
-							<div data-img="<?php echo base_url(); ?>dist/img/Monte2.png" class="any inverse">consejo 001</div>
-							<div data-img="<?php echo base_url(); ?>dist/img/Monte3.png" class="any inverse">sugerencia 008</div>
+							<div data-img="<?php echo base_url(); ?>dist/img/Monte2.png" class="any inverse">No hables mal de tu niño/a</div>
+							<div data-img="<?php echo base_url(); ?>dist/img/Monte1.png" class="any inverse">Si criticas mucho a un niño, aprenderá a juzgar.</div>
 							<div data-img="<?php echo base_url(); ?>dist/img/Monte4.png" class="any inverse">
-								Adevetencia 9
+							Si se le ridiculiza con frecuencia será una persona tímida
 							</div>
-							<div data-img="<?php echo base_url(); ?>dist/img/Monte5.png" class="any inverse">Estado niñez</div>
-							<div data-img="<?php echo base_url(); ?>dist/img/Inicio.jpg" class="any inverse">bla blas bla</div>
+							<div data-img="<?php echo base_url(); ?>dist/img/Monte5.png" class="any inverse">Ayuda al niño a asimilar lo que antes no había podido asimilar</div>
+							<div data-img="<?php echo base_url(); ?>dist/img/Inicio.jpg" class="any inverse">No forzar al niño en su aprendizaje evolutivo, la clave es acompaña</div>
 						</div>
 					</div>
 					<!-- /.card-body -->
