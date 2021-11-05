@@ -56,15 +56,28 @@
                             </div>
                             <div class="col-3">
                                 <?php if (isset($actividades)) { ?>
+                                    <?php $bandera = true; ?>
                                     <?php foreach ($actividades as $actividad) { ?>
+                                        <?php
+                                        if (isset($actividad->TERMINADO) && $actividad->TERMINADO > 0) {
+                                            $fondo_lnk = 'bg-success';
+                                            $icono_lnk = 'fa-check-square';
+                                            $texto_lnk = 'Terminado';
+                                        } else {
+                                            $fondo_lnk = ($bandera) ? 'bg-primary' : 'bg-secondary';
+                                            $icono_lnk = ($bandera) ? 'fa-square' : 'fa-ban';
+                                            $texto_lnk = ($bandera) ? 'Terminar' : 'bloqueado';
+                                            $bandera = false;
+                                        }
+                                        $color_uncheck = '' ?>
                                         <div class="titulo" id="<?= $actividad->ID_ACTIVIDAD ?>">
-                                            <div class="row">
+                                            <div class="row title_row">
                                                 <?= $actividad->TITULO ?>
                                             </div>
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <a class="btn btn-app bg-<?= (isset($actividad->TERMINADO) && $actividad->TERMINADO > 0) ? 'success' : 'primary' ?>" onclick="setIdTerminar(<?= $actividad->ID_ACTIVIDAD ?>)" data-toggle="modal" data-target="#terminarModal">
-                                                        <i class="fas fa-<?= (isset($actividad->TERMINADO) && $actividad->TERMINADO > 0) ? 'check-square' : 'square' ?>"></i> <?= (isset($actividad->TERMINADO) && $actividad->TERMINADO > 0) ? 'Terminado' : 'Terminar' ?>
+                                                    <a class="btn btn-app <?= $fondo_lnk ?>" onclick="setIdTerminar(<?= $actividad->ID_ACTIVIDAD ?>, this)">
+                                                        <i class="fas <?= $icono_lnk ?>"></i> <?= $texto_lnk ?>
                                                     </a>
                                                 </div>
                                                 <div class="col-6">
@@ -102,6 +115,7 @@
             </div>
             <form id="form_close" action"#">
                 <div class="modal-body">
+                    <div id="msj_nivel"></div>
                     <input id="close_actividad" name="ID_ACTIVIDAD" type="hidden">
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1">Ingrese un resumen de lo aprendido o aplicado sobre esta actividad</label>

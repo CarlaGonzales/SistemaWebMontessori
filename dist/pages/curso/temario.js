@@ -43,8 +43,28 @@ $(function () {
 	});
 });
 
-const setIdTerminar = (id_actividad) => {
-	$("#close_actividad").val(id_actividad);
+const setIdTerminar = (id_actividad, link) => {
+	let prevCheckbox = $(link).parent().parent().parent().prev();
+	$("#msj_nivel").html("");
+	if (
+		prevCheckbox.length == 0 ||
+		$(link).find("i.fa-check-square").length == 1 ||
+		$(link).find("i.fa-square").length == 1
+	) {
+		let titulo_act = $(link).parent().parent().prev().html();
+		let titulo_new = $(link)
+			.parent()
+			.parent()
+			.parent()
+			.next()
+			.find("div.title_row")
+			.html();
+		const mensaje = `<span class='badge badge-success'>Nivel actual:</span> ${titulo_act}<br/>
+						<span class='badge badge-warning'>Siguiente nivel:</span> ${titulo_new}`;
+		$("#msj_nivel").html(mensaje);
+		$("#close_actividad").val(id_actividad);
+		$("#terminarModal").modal("show");
+	}
 };
 
 const setIdSugerencia = (id_actividad) => {
