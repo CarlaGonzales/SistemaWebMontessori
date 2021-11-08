@@ -66,6 +66,18 @@
 													Autor: <?= $curso->NOMBRE ?> <?= $curso->APELLIDO_PAT ?> <?= $curso->APELLIDO_MAT ?>
 												</div>
 												<div class="row">
+													<div class="col-md-11">
+														<div class="progress">
+															<div class="progress-bar bg-warning progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+																<span class="sr-only">40% Complete (success)</span>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-1">
+														<span class="badge bg-warning">70%</span>
+													</div>
+												</div>
+												<div class="row">
 													<div class="col-md-5">
 														<a href="<?php echo base_url(); ?>curso/desinscribirse/<?= $curso->ID_CURSO ?>" class="btn btn-block btn-success">Desinscribirse</a>
 													</div>

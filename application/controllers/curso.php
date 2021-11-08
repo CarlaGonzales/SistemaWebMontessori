@@ -129,6 +129,8 @@ class Curso extends CI_Controller
 
 	public function miscursos($filtro = "")
 	{
+		$this->layouts->add_include_js('plugins/jquery-knob/jquery.knob.min.js');
+		$this->layouts->add_include_js('dist/pages/curso/miscursos.js');
 		$this->load->model('ContenidoModel', 'mContenido');
 		$filtro = (isset($filtro)) ? explode("-", $filtro) : [];
 		$cursos = $this->mCurso->misCursosInscritos(implode(',', $filtro));

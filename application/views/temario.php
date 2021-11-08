@@ -4,13 +4,41 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h5>CURSO: <?= $curso->TITULO ?><a href="<?php echo base_url() ?>curso/miscursos" class="btn btn-default float-right">Regresar a mis Cursos</a></h5>
-                <h1>Lista de actividades</h1>
+                <h1></h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item active">Actividades</li>
                 </ol>
+            </div>
+            <?php
+            $cont_fin = 0;
+            foreach ($actividades as $actividad) {
+                if (isset($actividad->TERMINADO) && $actividad->TERMINADO > 0) {
+                    $cont_fin++;
+                }
+            }
+            $porcentaje = round($cont_fin / count($actividades) * 100, 2);
+            ?>
+            <div class="col-sm-12">
+                <div class="info-box bg-info">
+                    <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Lista de actividades</span>
+                        <span class="info-box-number"><?= $cont_fin ?>/<?= count($actividades) ?></span>
+
+                        <div class="progress">
+                            <div class="progress-bar" style="width: <?= $porcentaje ?>%"></div>
+                        </div>
+                        <span class="progress-description">
+                            <?= $porcentaje ?>% progreso
+                        </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
             </div>
         </div>
     </div><!-- /.container-fluid -->
@@ -48,6 +76,17 @@
                                         ?>
                                         <div class='descripcion' id="desc-<?= $actividad->ID_ACTIVIDAD ?>" <?= $style ?>>
                                             <?= $actividad->DESCRIPCION ?>
+                                            <?php if (isset($actividad->AUDIO) && $actividad->AUDIO != '') { ?>
+                                                <div class="callout callout-success">
+                                                    <h5>hacer clic <i class="far fa-play-circle"></i> en reproducir audio</h5>
+                                                    <p>
+                                                        <audio controls>
+                                                            <source src="<?= base_url() . 'uploads/' . $actividad->AUDIO ?>" type="audio/mpeg">
+                                                            Your browser does not support the audio element.
+                                                        </audio>
+                                                    </p>
+                                                </div>
+                                            <?php } ?>
                                         </div>
                                         <?php unset($actividad->DESCRIPCION); ?>
                                         <div style="display: none;"><?= json_encode($actividad) ?></div>
