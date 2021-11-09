@@ -17,6 +17,7 @@ class Curso extends CI_Controller
 		$this->load->model('AreaCategoriaModel', 'mAreaCategoria');
 		$this->load->model('ActividadModel', 'mActividad');
 		$this->load->model('EstadoActividadModel', 'mEstadoActividad');
+		$this->load->model('PersonaModel', 'mPersona');
 		if ($this->session->userdata('username') == '') {
 			redirect('/ingreso');
 		}
@@ -118,11 +119,11 @@ class Curso extends CI_Controller
 		$area_categoria = $this->mAreaCategoria->getAll();
 
 		$imagenes = array(
-			'0' => $this->listarArchivos(getcwd()."/img/areas/0/"),
-			'1' => $this->listarArchivos(getcwd()."/img/areas/1/"),
-			'2' => $this->listarArchivos(getcwd()."/img/areas/2/"),
-			'3' => $this->listarArchivos(getcwd()."/img/areas/3/"),
-			'4' => $this->listarArchivos(getcwd()."/img/areas/4/")
+			'0' => $this->listarArchivos(getcwd() . "/img/areas/0/"),
+			'1' => $this->listarArchivos(getcwd() . "/img/areas/1/"),
+			'2' => $this->listarArchivos(getcwd() . "/img/areas/2/"),
+			'3' => $this->listarArchivos(getcwd() . "/img/areas/3/"),
+			'4' => $this->listarArchivos(getcwd() . "/img/areas/4/")
 		);
 		$this->layouts->view('curso/sugerencia', compact('cursos', 'area_categoria', 'filtro', 'imagenes'));
 	}
@@ -135,13 +136,13 @@ class Curso extends CI_Controller
 		$filtro = (isset($filtro)) ? explode("-", $filtro) : [];
 		$cursos = $this->mCurso->misCursosInscritos(implode(',', $filtro));
 		$area_categoria = $this->mAreaCategoria->getAll();
-		
+
 		$imagenes = array(
-			'0' => $this->listarArchivos(getcwd()."/img/areas/0/"),
-			'1' => $this->listarArchivos(getcwd()."/img/areas/1/"),
-			'2' => $this->listarArchivos(getcwd()."/img/areas/2/"),
-			'3' => $this->listarArchivos(getcwd()."/img/areas/3/"),
-			'4' => $this->listarArchivos(getcwd()."/img/areas/4/")
+			'0' => $this->listarArchivos(getcwd() . "/img/areas/0/"),
+			'1' => $this->listarArchivos(getcwd() . "/img/areas/1/"),
+			'2' => $this->listarArchivos(getcwd() . "/img/areas/2/"),
+			'3' => $this->listarArchivos(getcwd() . "/img/areas/3/"),
+			'4' => $this->listarArchivos(getcwd() . "/img/areas/4/")
 		);
 		$this->layouts->view('curso/miscursos', compact('cursos', 'area_categoria', 'filtro', 'imagenes'));
 	}
@@ -211,5 +212,18 @@ class Curso extends CI_Controller
 		$actividades = $this->mEstadoActividad->getAll($idCurso);
 		$curso = $this->mCurso->getOne($idCurso);
 		$this->layouts->view('temario', compact('actividades', 'idCurso', 'curso'));
+	}
+
+	public function reporte($idCurso=0)
+	{
+		$this->layouts->add_include_js('plugins/chart.js/Chart.min.js');
+		$this->layouts->add_include_js('dist/pages/curso/reporte.js');
+		
+		$cursos = $this->mCurso->getAll();
+		$estudiantes = null;
+		if (isset($idCurso)) {
+			$estudiantes = $this->mPersona->getAllByCurso($idCurso);
+		}
+		$this->layouts->view('curso/reporte', compact('estudiantes', 'idCurso', 'cursos'));
 	}
 }
