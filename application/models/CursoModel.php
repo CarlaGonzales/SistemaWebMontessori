@@ -192,4 +192,31 @@ class CursoModel extends CI_Model
         }
         return $data;
     }
+
+    public function getAllByUsuario($idUsuario)
+    {
+        $result = null;
+        $sql = "SELECT curso.*, curso_actividad.NUM_ACTIVIDAD, estado_actividad.CANT_FIN_ACT 
+                FROM curso
+INNER JOIN curso_inscrito ON curso_inscrito.ID_CURSO = curso.ID_CURSO AND curso_inscrito.ID_USUARIO = $idUsuario
+                LEFT JOIN ( SELECT ID_CURSO, COUNT(ID_ACTIVIDAD) NUM_ACTIVIDAD
+                            FROM actividad
+                            WHERE actividad.ESTADO = 1
+                            GROUP BY ID_CURSO) curso_actividad ON  curso_actividad.ID_CURSO = curso.ID_CURSO
+                LEFT JOIN ( SELECT usuario.ID_USUARIO, actividad.ID_CURSO, COUNT(estado_actividad.ID_ACTIVIDAD) CANT_FIN_ACT
+                            FROM estado_actividad
+                            INNER JOIN actividad ON actividad.ID_ACTIVIDAD=estado_actividad.ID_ACTIVIDAD
+							INNER JOIN usuario ON usuario.ID_USUARIO=estado_actividad.ID_USUARIO AND usuario.ID_USUARIO = $idUsuario
+                            WHERE estado_actividad.TERMINADO = 1
+                            GROUP BY usuario.ID_USUARIO, actividad.ID_CURSO) estado_actividad ON estado_actividad.ID_CURSO = curso.ID_CURSO
+                WHERE curso.estado = 1 ";
+        $query = $this->db->query($sql);
+
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            return $result;
+        }
+
+        return $result;
+    }
 }

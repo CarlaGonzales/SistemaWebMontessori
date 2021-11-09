@@ -124,4 +124,22 @@ class PersonaModel extends CI_Model
 
         return $result;
     }
+
+    public function getAllEstudiantes()
+    {
+        $result = null;
+        $sql = "SELECT DISTINCT usuario.ID_USUARIO, persona.* 
+                FROM persona
+                LEFT JOIN usuario ON usuario.ID_PERSONA = persona.ID_PERSONA
+                LEFT JOIN curso_inscrito ON curso_inscrito.ID_USUARIO = usuario.ID_USUARIO";
+
+        $query = $this->db->query($sql);
+
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            return $result;
+        }
+
+        return $result;
+    }
 }

@@ -333,6 +333,41 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <p>
+                                        Reportes
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="<?php echo base_url(); ?>curso/reporte" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Curso</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?php echo base_url(); ?>personas/reporte" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Estudiante</p>
+                                        </a>
+                                    </li>
+                                    <!--<li class="nav-item">
+                                        <a href="<?php echo base_url(); ?>area/reporte" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Area</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="<?php echo base_url(); ?>area/categoria" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Categoria</p>
+                                        </a>
+                                    </li>-->
+                                </ul>
+                            </li>
                         <?php } ?>
                     </ul>
                 </nav>

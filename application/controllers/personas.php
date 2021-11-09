@@ -12,10 +12,13 @@ class Personas extends CI_Controller
 		$this->load->library('session');
 		$this->load->model('PersonaModel', 'mPersona');
 		$this->load->model('UsuarioModel', 'mUsuario');
+		$this->load->model('CursoModel', 'mCurso');
 		if ($this->session->userdata('username') == '') {
 			redirect('/ingreso');
 		}
-		//$this->layouts->add_include('css/main.css');
+		$this->layouts->add_include_css('plugins/select2/css/select2.min.css');
+		$this->layouts->add_include_css('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css');
+		$this->layouts->add_include_js('plugins/select2/js/select2.full.min.js');
 	}
 
 	public function index()
@@ -67,5 +70,18 @@ class Personas extends CI_Controller
 	{
 		$this->mPersona->deleteOne($idPersona);
 		redirect('personas/index');
+	}
+
+	public function reporte($idUsuario=0)
+	{
+		$this->layouts->add_include_js('plugins/chart.js/Chart.min.js');
+		$this->layouts->add_include_js('dist/pages/persona/reporte.js');
+		
+		$estudiantes = $this->mPersona->getAllEstudiantes();
+		$cursos = null;
+		if (isset($idUsuario)) {
+			$cursos = $this->mCurso->getAllByUsuario($idUsuario);
+		}
+		$this->layouts->view('persona/reporte', compact('cursos', 'idUsuario', 'estudiantes'));
 	}
 }
