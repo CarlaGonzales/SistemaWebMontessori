@@ -33,7 +33,7 @@
       <div class="form-group row">
         <label for="AREA_CATEGORIA" class="col-sm-2 col-form-label">Areas</label>
         <div class="col-sm-10 select2-purple">
-          <select name="AREA_CATEGORIA[]" class="select2" multiple="multiple" data-placeholder="Select a State" data-dropdown-css-class="select2-purple" style="width: 100%;">
+          <select name="AREA_CATEGORIA[]" class="select2" required multiple="multiple" data-placeholder="Select a State" data-dropdown-css-class="select2-purple" style="width: 100%;">
             <?php foreach ($area_categoria as $ar) { ?>
               <?php if (isset($area_categoria_sel) && count($area_categoria_sel)) { ?>
                 <?php foreach ($area_categoria_sel as $seleccionado) { ?>

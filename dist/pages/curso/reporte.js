@@ -8,15 +8,39 @@ $(function () {
 		window.location = base_url + "curso/reporte/" + selected;
 	});
 
-	$("#tableReport").DataTable({
-		paging: true,
-		lengthChange: false,
-		searching: false,
-		ordering: true,
-		info: true,
-		autoWidth: false,
-		responsive: true,
-	});
+	var currentdate = new Date();
+	var datetime = currentdate.toISOString();
+
+	$("#tableReport")
+		.DataTable({
+			paging: true,
+			searching: false,
+			ordering: true,
+			info: true,
+			responsive: true,
+			lengthChange: false,
+			autoWidth: false,
+			buttons: [
+				{
+					extend: "excel",
+					title: ()=>"Reporte curso: "+ $("#selectCurso").select2("data")[0].text,
+					messageBottom: "Fecha descarga: " + datetime,
+				},
+				{
+					extend: "pdf",
+					title: ()=>"Reporte curso: "+ $("#selectCurso").select2("data")[0].text,
+					messageBottom: "Fecha descarga: " + datetime,
+				},
+				{
+					extend: "print",
+					title: ()=>"Reporte curso: "+ $("#selectCurso").select2("data")[0].text,
+					messageBottom: "Fecha descarga: " + datetime,
+				},
+			],
+		})
+		.buttons()
+		.container()
+		.appendTo("#tableReport_wrapper .col-md-6:eq(0)");
 
 	//-------------
 	//- DONUT CHART -

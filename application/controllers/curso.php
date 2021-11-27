@@ -218,6 +218,7 @@ class Curso extends CI_Controller
 	{
 		$this->layouts->add_include_js('plugins/chart.js/Chart.min.js');
 		$this->layouts->add_include_js('dist/pages/curso/reporte.js');
+		$this->layouts->add_include_js('dist/pages/contenido/reporte.js');
 		
 		$cursos = $this->mCurso->getAll();
 		$estudiantes = null;

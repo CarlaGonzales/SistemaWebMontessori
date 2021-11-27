@@ -44,7 +44,13 @@ class ContenidoModel extends CI_Model
     public function getPublicados()
     {
         $result = null;
-        $sql = "SELECT contenido.*, persona.* 
+        $sql = "SELECT contenido.*, persona.*, (SELECT a.id_area 
+                                                FROM area a
+                                                INNER JOIN area_categoria ac ON a.ID_AREA=ac.ID_AREA
+                                                INNER JOIN clasificacion_contenido cc ON ac.ID_CATDIM = cc.ID_CATDIM
+                                                WHERE cc.id_contenido = contenido.id_contenido
+                                                ORDER BY RAND() 
+                                                LIMIT 1) AS ID_AREA 
                 FROM contenido
                 INNER JOIN usuario ON usuario.id_usuario = contenido.id_usuario
                 INNER JOIN persona ON persona.id_persona = usuario.id_persona

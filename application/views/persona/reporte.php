@@ -23,16 +23,16 @@
                 <!-- Default box -->
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Seleccione un estudiante</h3>
+                        <h3 class="card-title">Seleccione un tutor</h3>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group row">
-                                    <label for="PUBLICAR" class="col-sm-1 col-form-label">Estudiante</label>
+                                    <label for="PUBLICAR" class="col-sm-1 col-form-label">Tutor</label>
                                     <div class="col-sm-11 select2-purple">
                                         <select id="selectCurso" data-placeholder="Seleccione un curso" data-dropdown-css-class="select2-purple" style="width: 100%;">
-                                            <option value="">Seleccione un estudiante</option>
+                                            <option value="">Seleccione un Tutor</option>
                                             <?php foreach ($estudiantes as $estudiante) { ?>
                                                 <option value="<?= $estudiante->ID_USUARIO ?>"><?= $estudiante->NOMBRE ?> <?= $estudiante->APELLIDO_PAT ?> <?= $estudiante->APELLIDO_MAT ?></option>
                                             <?php } ?>

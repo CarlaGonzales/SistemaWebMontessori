@@ -55,14 +55,25 @@
 								<?php foreach ($contenidos as $contenido) { ?>
 									<div class="col-md-12 col-lg-6 col-xl-4">
 										<div class="card mb-2">
-											<img class="card-img-top" height="250" src="<?php echo base_url(); ?>dist/img/Monte<?= random_int(1, 5) ?>.png" alt="<?= $contenido->TITULO ?>">
+											<?php
+											$entrada = $imagenes[($contenido->ID_AREA >= 1 && $contenido->ID_AREA <= 4) ? $contenido->ID_AREA . '' : '0'];
+											$claves_aleatorias = array_rand($entrada, 1);
+											?>
+											<img class="card-img-top" height="250" src="<?php echo base_url(); ?>/img/areas/<?= ($contenido->ID_AREA >= 1 && $contenido->ID_AREA <= 4) ? $contenido->ID_AREA . '' : '0' ?>/<?= $entrada[$claves_aleatorias] ?>" alt="<?= $contenido->TITULO ?>">
 											<div class="card-img-overlay d-flex flex-column justify-content-center">
-												<h5 style="color:black; border-radius: 5px; background: #ffc107; opacity: 0.5;" class="card-title  mt-5 pt-2"><?= $contenido->TITULO ?></h5>
-												<p style="color:black; border-radius: 5px; background: #ffc107; opacity: 0.5;" class="card-text pb-2 pt-1 "><?= $contenido->SUB_TITULO ?></p>
-												<a style="color:black; border-radius: 5px; background: #ffc107; opacity: 0.5;" class="" href="<?php echo base_url(); ?>contenido/numero/<?= $contenido->ID_CONTENIDO ?>" class="text-white">
-													Publicado: <?= $contenido->FECHA_PUBLICACION ?><br/>
+												<h5 style="font-size:1.5em;font-weight: bold;color:black;border-radius: 5px;background: #d7dddd;opacity: 0.5;" class="card-title  mt-5 pt-2"><?= $contenido->TITULO ?></h5>
+												<p style="font-weight: bold; color:black; border-radius: 5px; background: #d7dddd; opacity: 0.5;" class="card-text pb-2 pt-1 "><?= $contenido->SUB_TITULO ?></p>
+												<p style="font-weight: bold; color:black; border-radius: 5px; background: #d7dddd; opacity: 0.5;" class="" href="<?php echo base_url(); ?>contenido/numero/<?= $contenido->ID_CONTENIDO ?>" class="text-white">
+													Publicado: <?= $contenido->FECHA_PUBLICACION ?><br />
 													Autor: <?= $contenido->NOMBRE ?> <?= $contenido->APELLIDO_PAT ?> <?= $contenido->APELLIDO_MAT ?>
-												</a>
+												</p>
+												<div class="row">
+													<div class="col-md-7">
+													</div>
+													<div class="col-md-5">
+														<a href="<?php echo base_url(); ?>contenido/numero/<?= $contenido->ID_CONTENIDO ?>" class="btn btn-block bg-gradient-success">Ver publicación</a>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>

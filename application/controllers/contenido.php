@@ -34,8 +34,39 @@ class Contenido extends CI_Controller
 
 	public function listar()
 	{
+		$imagenes = array(
+			'0' => $this->listarArchivos(getcwd() . "/img/areas/0/"),
+			'1' => $this->listarArchivos(getcwd() . "/img/areas/1/"),
+			'2' => $this->listarArchivos(getcwd() . "/img/areas/2/"),
+			'3' => $this->listarArchivos(getcwd() . "/img/areas/3/"),
+			'4' => $this->listarArchivos(getcwd() . "/img/areas/4/")
+		);
 		$contenidos = $this->mContenido->getPublicados();
-		$this->layouts->view('publicados', compact('contenidos'));
+		$this->layouts->view('publicados', compact('contenidos', 'imagenes'));
+	}
+
+	function listarArchivos($path)
+	{
+		// Abrimos la carpeta que nos pasan como parámetro
+		$dir = opendir($path);
+		$respuesta = array();
+		// Leo todos los ficheros de la carpeta
+		while ($elemento = readdir($dir)) {
+			// Tratamos los elementos . y .. que tienen todas las carpetas
+			if ($elemento != "." && $elemento != "..") {
+				// Si es una carpeta
+				if (is_dir($path . $elemento)) {
+					// Muestro la carpeta
+					//echo "<p><strong>CARPETA: " . $elemento . "</strong></p>";
+					// Si es un fichero
+				} else {
+					// Muestro el fichero
+					array_push($respuesta, $elemento);
+					//echo "<br />" . $elemento;
+				}
+			}
+		}
+		return $respuesta;
 	}
 
 	public function numero($idContenido)
